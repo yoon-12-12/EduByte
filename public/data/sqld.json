@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "question": "SQL에서 PRIMARY KEY의 특징은?",
+    "options": [
+      "중복 가능",
+      "NULL 허용",
+      "고유성 보장",
+      "여러 행에서 동일 가능"
+    ],
+    "answer": 2,
+    "explanation": "PRIMARY KEY는 중복을 허용하지 않으며 고유성을 보장한다."
+  },
+  {
+    "id": 2,
+    "question": "JOIN의 목적은?",
+    "options": [
+      "테이블 연결",
+      "데이터 삭제",
+      "인덱스 생성",
+      "권한 부여"
+    ],
+    "answer": 0,
+    "explanation": "JOIN은 두 개 이상의 테이블을 연결하여 데이터를 조회하기 위해 사용한다."
+  }
+]
