@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./README-banner.png" width="900">
+</p>
+
 # EduByte
 
 시험 및 자격증 학습을 위한 통합 학습 플랫폼
