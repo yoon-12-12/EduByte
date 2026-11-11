@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
 import MainLayout from "../../components/layout/MainLayout";
 import PageHeader from "../../components/common/PageHeader";
@@ -78,6 +78,9 @@ export default function ExamQuiz() {
 
   const navigate =
     useNavigate();
+
+  const [searchParams] = useSearchParams();
+  const questionCountParam = searchParams.get("count");
 
   const exam =
     exams.find(
@@ -244,11 +247,26 @@ export default function ExamQuiz() {
             `./data/${exam.questionFile}`
           );
 
-        const data =
+        if (!response.ok) {
+          throw new Error(`문제 파일을 불러오지 못했습니다. (${response.status})`);
+        }
+
+        const data: Question[] =
           await response.json();
 
+        const shuffledQuestions =
+          shuffleArray(data);
+
+        const requestedCount =
+          Number(questionCountParam);
+
+        const actualCount =
+          Number.isInteger(requestedCount) && requestedCount > 0
+            ? Math.min(requestedCount, shuffledQuestions.length)
+            : shuffledQuestions.length;
+
         setQuestions(
-          shuffleArray(data)
+          shuffledQuestions.slice(0, actualCount)
         );
 
         /* 즐겨찾기 로드 */
@@ -314,7 +332,7 @@ export default function ExamQuiz() {
     }
 
     loadQuiz();
-  }, [exam, id]);
+  }, [exam, id, questionCountParam]);
 
   /* =========================
      즐겨찾기
